@@ -1,6 +1,7 @@
 # taken from https://towardsdatascience.com/10-algorithms-to-solve-before-your-python-coding-interview-feb74fb9bc27
 import collections
 
+
 def algo_01(x):
     """
     Given an integer, return the integer with reversed digits.
@@ -47,7 +48,8 @@ def algo_03a(num1, num2):
 
 def algo_03b(num1, num2):
     """
-    Given a string of length one, the ord() function returns an integer representing the Unicode code point of the character
+    Given a string of length one, the ord()
+    function returns an integer representing the Unicode code point of the character
     when the argument is a unicode object, or the value of the byte when the argument is an 8-bit string.
 
     :param num1, num2:
@@ -68,10 +70,10 @@ def algo_03b(num1, num2):
 
 
 def algo_04a(s):
-"""
-Given a string, find the first non-repeating character in it and return its index.
-If it doesn't exist, return -1. # Note: all the input strings are already lowercase.
-"""
+    """
+    Given a string, find the first non-repeating character in it and return its index.
+    If it doesn't exist, return -1. # Note: all the input strings are already lowercase.
+    """
     frequency = {}
     for i in s:
         if i not in frequency:
@@ -96,30 +98,31 @@ def algo_04b(s):
 
 
 def algo_05(s):
-"""
-Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
-The string will only contain lowercase characters a-z.
-"""
+    """
+    Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
+    The string will only contain lowercase characters a-z.
+    """
     for i in range(len(s)):
         t = s[:i] + s[i + 1:]
-        if t == t[::-1]: return True
+        if t == t[::-1]:
+            return True
 
     return s == s[::-1]
 
 
 def algo_06(nums):
-"""
-Given an array of integers, determine whether the array is monotonic or not.
-"""
+    """
+    Given an array of integers, determine whether the array is monotonic or not.
+    """
     return (all(nums[i] <= nums[i + 1] for i in range(len(nums) - 1)) or
             all(nums[i] >= nums[i + 1] for i in range(len(nums) - 1)))
 
 
 def algo_07(nums):
-"""
-Given an array nums, write a function to move all zeroes to the end of it while maintaining the relative order of
-the non-zero elements.
-"""
+    """
+    Given an array nums, write a function to move all zeroes to the end of it while maintaining the relative order of
+    the non-zero elements.
+    """
     for i in nums:
         if 0 in nums:
             nums.remove(0)
@@ -128,10 +131,10 @@ the non-zero elements.
 
 
 def algo_08(array):
-"""
-Given an array containing None values fill in the None values with most recent
-non None value in the array
-"""
+    """
+    Given an array containing None values fill in the None values with most recent
+    non None value in the array
+    """
     valid = 0
     res = []
     for i in array:
@@ -144,10 +147,10 @@ non None value in the array
 
 
 def algo_09(sentence1, sentence2):
-"""
-Given two sentences, return an array that has the words that appear in one sentence and not
-the other and an array with the words in common.
-"""
+    """
+    Given two sentences, return an array that has the words that appear in one sentence and not
+    the other and an array with the words in common.
+    """
     set1 = set(sentence1.split())
     set2 = set(sentence2.split())
 
@@ -155,20 +158,18 @@ the other and an array with the words in common.
 
 
 def algo_10(n):
-"""
-Given k numbers which are less than n, return the set of prime number among them
-Note: The task is to write a program to print all Prime numbers in an Interval.
-Definition: A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
-"""
+    """
+    Given k numbers which are less than n, return the set of prime number among them
+    Note: The task is to write a program to print all Prime numbers in an Interval.
+    Definition: A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+    """
     prime_nums = []
     for num in range(n):
-        if num > 1: 
+        if num > 1:
             for i in range(2, num):
-                if (
-                        num % i) == 0:  # if the modulus == 0 is means that the number can be divided by a number preceding it
+                if (num % i) == 0:
+                    # if the modulus == 0 is means that the number can be divided by a number preceding it
                     break
             else:
                 prime_nums.append(num)
     return prime_nums
-
-

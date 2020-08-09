@@ -1,9 +1,8 @@
 import pytest
 from src import algo_work
-import collections
 
 
-class TestOriginal:
+class TestClassic:
 
     @pytest.mark.parametrize(
         argnames=['input_value', 'expected_value'],
@@ -28,19 +27,11 @@ class TestOriginal:
     @pytest.mark.parametrize(
         argnames=['input_value_1', 'input_value_2', 'expected_value'],
         argvalues=[
-            ['364', '1836', 2200]
+            ['364', '1836', '2200']
         ]
     )
-    def test_algo_03a(self, input_value_1, input_value_2, expected_value):
+    def test_algo_03(self, input_value_1, input_value_2, expected_value):
         assert algo_work.algo_03a(input_value_1, input_value_2) == expected_value
-
-    @pytest.mark.parametrize(
-        argnames=['input_value_1', 'input_value_2', 'expected_value'],
-        argvalues=[
-            ['364', '1836', 2200]
-        ]
-    )
-    def test_algo_03b(self, input_value_1, input_value_2, expected_value):
         assert algo_work.algo_03b(input_value_1, input_value_2) == expected_value
 
     @pytest.mark.parametrize(
@@ -51,18 +42,8 @@ class TestOriginal:
             ['crunchy', 1],
         ]
     )
-    def test_algo_04a(self, input_value, expected_value):
+    def test_algo_04(self, input_value, expected_value):
         assert algo_work.algo_04a(input_value) == expected_value
-
-    @pytest.mark.parametrize(
-        argnames=['input_value', 'expected_value'],
-        argvalues=[
-            ['alphabet', 1],
-            ['barbados', 2],
-            ['crunchy', 1],
-        ]
-    )
-    def test_algo_04b(self, input_value, expected_value):
         assert algo_work.algo_04b(input_value) == expected_value
 
     @pytest.mark.parametrize(
@@ -105,16 +86,19 @@ class TestOriginal:
         assert algo_work.algo_08(input_value) == expected_value
 
     @pytest.mark.parametrize(
-        argnames=['input_value_1','input_value_2', 'expected_value'],
+        argnames=['input_value_1', 'input_value_2', 'expected_value'],
         argvalues=[
-            ['We are really pleased to meet you in our city', 'The city was hit by a really heavy storm', (['The','We','a','are','by','heavy','hit','in','meet','our','pleased','storm','to','was','you'],['city', 'really'])],
+            ['We are really pleased to meet you in our city', 'The city was hit by a really heavy storm',
+             (['The', 'We', 'a', 'are', 'by', 'heavy', 'hit', 'in', 'meet', 'our', 'pleased', 'storm', 'to', 'was',
+               'you'],
+              ['city', 'really'])],
         ]
     )
     def test_algo_09(self, input_value_1, input_value_2, expected_value):
-        assert algo_work.algo_09(input_value_1,input_value_2) == expected_value
+        assert algo_work.algo_09(input_value_1, input_value_2) == expected_value
 
     @pytest.mark.parametrize(
-        argnames=['input_value_1', 'expected_value'],
+        argnames=['input_value', 'expected_value'],
         argvalues=[
             [35, [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]],
         ]
