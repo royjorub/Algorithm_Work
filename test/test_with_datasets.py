@@ -90,9 +90,9 @@ class TestOriginalDataSet:
             [
                 # (input_value, expected_output)
                 (['We are really pleased to meet you in our city', 'The city was hit by a really heavy storm'],
-                 [(['The', 'We', 'a', 'are', 'by', 'heavy', 'hit', 'in', 'meet', 'our', 'pleased', 'storm', 'to', 'was',
+                 (['The', 'We', 'a', 'are', 'by', 'heavy', 'hit', 'in', 'meet', 'our', 'pleased', 'storm', 'to', 'was',
                    'you'],
-                  ['city', 'really'])])
+                  ['city', 'really']))
             ]
         ],
         [
