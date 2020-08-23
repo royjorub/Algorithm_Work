@@ -14,6 +14,7 @@ def algo_02(sentence):
 
     return round(sum(len(word) for word in words) / len(words), 2)
 
+
 def algo_02_b(sentence):
     """
     For a given sentence, return the average word length.
@@ -229,3 +230,118 @@ data_set = [
 ]
 
 data_map = {k: v for k, v in data_set}
+
+
+def algo_03(num1, num2):
+    """
+    Given a string of length one, the ord()
+    function returns an integer representing the Unicode code point of the character
+    when the argument is a unicode object, or the value of the byte when the argument is an 8-bit string.
+
+    :param num1, num2:
+    :return:
+    """
+    n1, n2 = 0, 0
+    m1, m2 = 10 ** (len(num1) - 1), 10 ** (len(num2) - 1)
+
+    for i in num1:
+        n1 += (ord(i) - ord("0")) * m1
+        m1 = m1 // 10
+
+    for i in num2:
+        n2 += (ord(i) - ord("0")) * m2
+        m2 = m2 // 10
+
+    return str(n1 + n2)
+
+
+def my_algo_03(num1, num2):
+    """
+    Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
+    You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+    Notes:
+    Both num1 and num2 contains only digits 0-9.
+    Both num1 and num2 does not contain any leading zero.
+
+    :param num1, num2:
+    :return:
+    """
+    pass
+
+
+import collections
+
+
+def algo_04a(s):
+    """
+    Given a string, find the first non-repeating character in it and return its index.
+    If it doesn't exist, return -1. # Note: all the input strings are already lowercase.
+    """
+    frequency = {}
+    for i in s:
+        if i not in frequency:
+            frequency[i] = 1
+        else:
+            frequency[i] += 1
+    for i in range(len(s)):
+        if frequency[s[i]] == 1:
+            return i
+    return -1
+
+
+# Approach 2
+# import collections - at top of page and on test file
+
+def algo_04b(s):
+    count = collections.Counter(s)
+    for idx, ch in enumerate(s):
+        if count[ch] == 1:
+            return idx
+    return -1
+
+
+def my_algo_04(s):
+    alone = {}
+    friends = []
+
+    for idx, c in enumerate(s):
+        if c in friends:
+            continue
+        elif c in alone:
+            friends.append(c)
+            alone.pop(c)
+        else:
+            alone[c] = idx
+
+    def sorter(t):
+        return t[-1]
+
+    if not alone:
+        return -1
+    else:
+        sorted_loners = sorted(alone.items(), key=sorter)
+        first_loner = sorted_loners[0]
+        return first_loner[-1]
+
+
+fun_string = "i once ate a pickle, it was yummy!"
+
+
+def friends_and_enemies(x=1, y=100):
+    mine = timeit.Timer(functools.partial(my_algo_04, fun_string * x))
+    orig_a = timeit.Timer(functools.partial(algo_04a, fun_string * x))
+    orig_b = timeit.Timer(functools.partial(algo_04b, fun_string * x))
+
+    print('mine', mine.repeat(3, y))
+    print('origa', orig_a.repeat(3, y))
+    print('origb', orig_b.repeat(3, y))
+
+
+# given two dictionaries:
+# a: create a new dictionary which contains all the items that are identical in both (key+value)
+# b: create a new dictionary which contains all the items that are not found in both
+# pay close attention, you could have the same key in both with different values - how do you resolve this?
+# useful tip: symmetric difference
+
+# take a look at collection.OrderedDict can you implement your own ordered dictionary?
