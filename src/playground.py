@@ -346,16 +346,9 @@ def friends_and_enemies(x=1, y=100):
 
 # take a look at collection.OrderedDict can you implement your own ordered dictionary?
 
-dic_1 = {}
-dic_2 = {}
+dic_1 = {"a": 1, "b": 2, "c": 3}
+dic_2 = {"b": 3, "c": 4, "d": 4}
 
-dic_1["a"] = 1
-dic_1["b"] = 2
-dic_1["c"] = 3
-
-dic_2["b"] = 3
-dic_2["c"] = 4
-dic_2["d"] = 4
 
 def cross_check_same(dic1, dic2):
     dic3 = {}
@@ -363,8 +356,17 @@ def cross_check_same(dic1, dic2):
         if key in dic2:
             dic3[key] = value
             if dic1[key] != dic2[key]:
-                dic3[key + "_leftover"] = abs((dic1[key] - dic2[key]))
+                dic3[key + "_leftover"] = abs(dic1[key] - dic2[key])
     return dic3
+
+
+def hw1(d1, d2):
+    d3 = {}
+    for key in d1:
+        if key in d2 and d1[key] == d2[key]:
+            d3[key] = d1[key]
+    return d3
+
 
 def cross_check_different(dic1, dic2):
     dic3 = {}
@@ -373,3 +375,113 @@ def cross_check_different(dic1, dic2):
             dic3[key] = value
     return dic3
 
+
+def hw2(d1, d2):
+    d3 = {}
+    for key, value in d1.items():
+        if key not in d2:
+            d3[key] = value
+        elif value != d2[key]:
+            # or whatever solution you want
+            d3[key] = {'d1': value, 'd2': d2[value]}
+    return d3
+
+
+dude1 = {'name': 'inbar', 'gender': 'male'}
+dude2 = {'name': 'roy', 'gender': 'male', 'location': 'LA'}
+
+
+class ConflictingValueError(ValueError):
+
+    def __init__(self, *args: object, key, d1_value, d2_value) -> None:
+        super().__init__(*args)
+        self.key = key
+        self.d1_value = d1_value
+        self.d2_value = d2_value
+
+
+def eggs(d1, d2):
+    """
+    looking only at dictionary 1 when iterating over keys
+    """
+    for key, value in d1.items():
+        if key not in d2:
+            yield key, value
+        elif value != d2[key]:
+            raise ConflictingValueError(f"{key}: {(value, d2[key])}",
+                                        key=key, d1_value=value, d2_value=d2[key])
+
+
+def _scrambled_eggs(d1, d2):
+    """
+    looking at both dictionaries and getting keys from all
+    """
+    key_chain = set(d1.keys()).symmetric_difference(d2.keys())
+    for key in key_chain:
+        yield key, d1.get(key, d2.get(key))
+
+    holy_bible = set(d1.keys()).intersection(d2.keys())
+    for key in holy_bible:
+        if d1[key] != d2[key]:
+            raise ConflictingValueError(f"{key}: {(d1[key], d2[key])}",
+                                        key=key, d1_value=d1[key], d2_value=d2[key])
+
+
+def scrambled_eggs(d1, d2):
+    """
+    implement scrambled eggs, always ignore conflicting value errors
+    """
+    se = _scrambled_eggs(d1, d2)
+    while True:
+        try:
+            yield next(se)
+        except StopIteration:
+            break
+        except ConflictingValueError:
+            pass
+
+
+def fiery_scrambled_eggs(d1, d2):
+    """
+    implement scrambled eggs, always ignore conflicting value errors
+    """
+    se = _scrambled_eggs(d1, d2)
+    while True:
+        try:
+            yield next(se)
+        except StopIteration:
+            break
+        except ConflictingValueError:
+            raise
+
+
+def basket(scrambled=True):
+    differences = {}
+    if scrambled:
+        x = scrambled_eggs(dude1, dude2)
+    else:
+        x = eggs(dude1, dude2)
+    while True:
+        try:
+            key, value = next(x)
+        except ConflictingValueError as cve:
+            differences[cve.key] = {'d1': cve.d1_value, 'd2': cve.d2_value}
+            # take the first one
+            # differences[cve.key] = cve.d1_value
+        except StopIteration:
+            break
+        else:
+            differences[key] = value
+    return differences
+
+
+def chicken(request=10):
+    for i in range(request):
+        yield 'here is an egg'
+
+
+def my_range(max_num):
+    current_num = 0
+    while current_num < max_num:
+        yield current_num
+        current_num += 1
