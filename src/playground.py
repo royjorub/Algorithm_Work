@@ -345,3 +345,31 @@ def friends_and_enemies(x=1, y=100):
 # useful tip: symmetric difference
 
 # take a look at collection.OrderedDict can you implement your own ordered dictionary?
+
+dic_1 = {}
+dic_2 = {}
+
+dic_1["a"] = 1
+dic_1["b"] = 2
+dic_1["c"] = 3
+
+dic_2["b"] = 3
+dic_2["c"] = 4
+dic_2["d"] = 4
+
+def cross_check_same(dic1, dic2):
+    dic3 = {}
+    for key, value in dic1.items():
+        if key in dic2:
+            dic3[key] = value
+            if dic1[key] != dic2[key]:
+                dic3[key + "_leftover"] = abs((dic1[key] - dic2[key]))
+    return dic3
+
+def cross_check_different(dic1, dic2):
+    dic3 = {}
+    for key, value in dic1.items():
+        if key not in dic2:
+            dic3[key] = value
+    return dic3
+
