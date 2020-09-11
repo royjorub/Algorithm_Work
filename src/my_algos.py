@@ -21,3 +21,28 @@ cleanup_all = str.maketrans({p: '' for p in string.punctuation})
 def my_algo_02(sentence):
     words = sentence.translate(cleanup_all).split()
     return round(sum(len(word) for word in words) / len(words))
+
+
+def my_algo_04(s):
+    alone = {}
+    friends = []
+
+    for idx, c in enumerate(s):
+        if c in friends:
+            continue
+        elif c in alone:
+            friends.append(c)
+            alone.pop(c)
+        else:
+            alone[c] = idx
+
+    def sorter(t):
+        return t[-1]
+
+    if not alone:
+        return -1
+    else:
+        sorted_loners = sorted(alone.items(), key=sorter)
+        first_loner = sorted_loners[0]
+        return first_loner[-1]
+

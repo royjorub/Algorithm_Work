@@ -18,6 +18,7 @@ orig_algos = {
 my_algos = {
     1: [my_algos.my_algo_01],
     2: [my_algos.my_algo_02],
+    3: [my_algos.my_algo_04],
 }
 
 original_data_map = {
