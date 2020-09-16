@@ -1,0 +1,57 @@
+# 2. Write function that when given a list of integers will return all those integers which are
+# at even indices and are also even numbers.
+# Sample Input: [2, 5, 7, 13, 16, 23, 42, 55, 3, 8]
+# Expected Output: [2, 16, 42]
+
+test_list_q2 = [2, 5, 7, 13, 16, 23, 42, 55, 3, 8]
+
+
+def even_i_even_num(arr):
+    output_list = []
+    for index in range(len(arr)):
+        if index % 2 == 0:
+            if arr[index] % 2 == 0:
+                output_list.append(arr[index])
+    return output_list
+
+
+# print(even_i_even_num(test_list_q2))
+
+
+# 3. Write a function that validates brackets in a string. When given a string will return True
+# or False if the string has valid brackets. Using common bracket types: [] () {}
+# Valid Samples:
+# '[some text]'
+# '[some {more(text)}]'
+# '[(something){to{(show)[off]}}]'
+#
+# Invalid Samples:
+# 'some invalid[ text'
+# 'this is not good[}]'
+# '[this](is){almost)(good}[but[it]is not'
+
+test_q3 = "[some {more(text)}]"
+
+
+def validate_brackets(sample):
+    opening_brackets = ["(", "[", "{"]
+    closing_brackets = [")", "]", "}"]
+    bracket_log = []
+
+    for character in sample:
+        if character in opening_brackets:
+            character_index_open = opening_brackets.index(character)
+            print(character_index_open)
+            bracket_log.append(character_index_open)
+        if character in closing_brackets:
+            character_index_close = closing_brackets.index(character)
+            print("-", character_index_close)
+            if character_index_close in bracket_log:
+                bracket_log.remove(character_index_close)
+            else:
+                return False
+
+    return len(bracket_log) == 0
+
+
+# print(validate_brackets(test_q3))

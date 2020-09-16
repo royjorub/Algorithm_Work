@@ -1,0 +1,108 @@
+Python Interview Questions
+1. Determine the values for A0..A5:
+A0 = range(10)
+A1 = [i for i in range(5, 15) if i in A0]
+A2 = {i: A1[i] for i in A0[:5]}
+A3 = sorted(filter(A1.index, A2.values()))
+A4 = {i: range(i) for i in A2}
+A5 = sorted([n for l in A4.values() for n in l])
+2. Write function that when given a list of integers will return all those integers which are
+at even indices and are also even numbers.
+Sample Input: [2, 5, 7, 13, 16, 23, 42, 55, 3, 8]
+Expected Output: [2, 16, 42]
+3. Write a function that validates brackets in a string. When given a string will return True
+or False if the string has valid brackets. Using common bracket types: [] () {}
+Valid Samples:
+'[some text]'
+'[some {more(text)}]'
+'[(something){to{(show)[off]}}]'
+
+Invalid Samples:
+'some invalid[ text'
+'this is not good[}]'
+'[this](is){almost)(good}[but[it]is not'
+4. Given the following function `foo` what will the output of the following calls be?
+def foo(x, col=[]):
+col.extend(range(x))
+print col
+foo(2)
+foo(3, [3, 2, 1])
+foo(3)
+5. Please describe the following decorators:
+@classmethod, @staticmethod, @property
+6. What happens when you `import this`
+
+7. What will x and y be in the following code snippet?
+names = [&#39;alice&#39;, &#39;bob&#39;]
+genders = [&#39;female&#39;, &#39;male&#39;]
+x = zip(names, genders)
+y = zip(*x)
+
+8. What will be the MRO (Method Resolution Order) in the following code? And what will
+the output be?
+# define classes
+class First(object):
+def __init__(self):
+print &quot;first prologue&quot;
+super(First, self).__init__()
+print &quot;first epilogue&quot;
+class Second(First):
+def __init__(self):
+print &quot;second prologue&quot;
+super(Second, self).__init__()
+print &quot;second epilogue&quot;
+class Third(First):
+def __init__(self):
+print &quot;third prologue&quot;
+super(Third, self).__init__()
+print &quot;third epilogue&quot;
+class Fourth(Second, Third):
+def __init__(self):
+super(Fourth, self).__init__()
+print &quot;that&#39;s it&quot;
+# create an instance of Fourth
+Fourth()
+
+9. What will the output of the below code be?
+# define classes
+class A:
+foo = 1
+bar = 2
+class B(A):
+foo = 3
+class C(B):
+bar = 4
+class D(A):
+pass
+# test classes
+print &#39;first&#39;, B.foo, C.foo, D.foo
+print &#39;second&#39;, B.bar, C.bar, D.bar
+A.foo = 5
+print &#39;third&#39;, B.foo, C.foo, D.foo
+A.bar = 6
+print &#39;fourth&#39;, B.bar, C.bar, D.bar
+D.foo = 7
+print &#39;fifth&#39;, A.foo, B.foo, C.foo
+D.bar = 8
+print &#39;sixth&#39;, A.bar, B.bar, C.bar
+
+10. What do you expect to happen in the following code, what can go wrong?
+from threading import Thread
+# define a class to count iterations
+class Counter(object):
+def __init__(self):
+self.value = 0
+def increment(self):
+self.value += 1
+c = Counter()
+def go():
+for i in range(1000000): # one million
+c.increment()
+# Run two threads that increment the counter:
+t1 = Thread(target=go)
+t1.start()
+t2 = Thread(target=go)
+t2.start()
+t1.join()
+t2.join()
+print(c.value)
